@@ -1,0 +1,18 @@
+version: "2"
+services:
+  web:
+    image: ctftraining/base_image_nginx_php_56
+    volumes:
+      - ./tests/index.php:/var/www/html/index.php
+      - ./tests/admin.php:/var/www/html/admin.php
+    restart: always
+    ports:
+      - "8086:80"
+  
+  xssbot:
+    build: .
+    image: ctftraining/base_image_xssbot
+    # shm_size: '1gb'
+    environment:
+      - FLAG=ctftraining{xss_bot_666}
+    restart: always
